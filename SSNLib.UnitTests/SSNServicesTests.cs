@@ -1,8 +1,9 @@
 ﻿namespace SSNLib.UnitTests;
 
-using SSNLib;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using SSNApi.Domain.Interfaces;
+using SSNApi.Domain.Types;
 
+using SSNLib;
 
 [TestClass()]
 public class SSNServicesTests
@@ -12,8 +13,8 @@ public class SSNServicesTests
   {
     //ARRANGE
     SSNServices service = new();
-    var ssn = "800101-0019";
-    
+    string ssn = "800101-0019";
+
     //ACT
     bool actual = await service.IsValid(ssn);
 
@@ -25,12 +26,12 @@ public class SSNServicesTests
   public async Task GetGenderIsFemaleTestAsync()
   {
     //ARRANGE
-    SSNServices service = new();
-    var ssn = "800101-1007";
-    var expected = Gender.Female;
+    SSNServices service = new SSNServices();
+    string ssn = "800101-1007";
+    Gender expected = Gender.Female;
 
     //ACT
-    var actual = await service.GetGender(ssn);
+    Gender actual = await service.GetGender(ssn);
 
     //ASSERT
     Assert.AreEqual(actual, expected);
@@ -40,12 +41,12 @@ public class SSNServicesTests
   public async Task GetGenderIsMaleTestAsync()
   {
     //ARRANGE
-    SSNServices service = new();
-    var ssn = "800101-0017";
-    var expected = Gender.Male;
+    SSNServices service = new SSNServices();
+    string ssn = "800101-0017";
+    Gender expected = Gender.Male;
 
     //ACT
-    var actual = await service.GetGender(ssn);
+    Gender actual = await service.GetGender(ssn);
 
     //ASSERT
     Assert.AreEqual(actual, expected);
@@ -55,11 +56,11 @@ public class SSNServicesTests
   public async Task GenerateRandomIsValidTestAsync()
   {
     //ARRANGE
-    SSNServices service = new();
-    DateTime start = new DateTime(1960, 1, 1);
+    SSNServices service = new SSNServices();
+    DateTime start = new(1960, 1, 1);
 
     //ACT
-    var ssn = await service.GenerateRandom(start);
+    string ssn = await service.GenerateRandom(start);
     bool valid = await service.IsValid(ssn);
 
     //ASSERT
@@ -70,12 +71,12 @@ public class SSNServicesTests
   public async Task GenerateCheckDigitTestAsync()
   {
     //ARRANGE
-    SSNServices service = new();
-    var ssn = "800101-001";
-    var expected = 9;
+    SSNServices service = new SSNServices();
+    string ssn = "800101-001";
+    int expected = 9;
 
     //ACT
-    var actual = await service.GenerateCheckDigit(ssn);
+    int actual = await service.GenerateCheckDigit(ssn);
 
     //ASSERT
     Assert.AreEqual(actual, expected);

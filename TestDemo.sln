@@ -3,9 +3,45 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34511.84
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SSNLib", "SSNLib\SSNLib.csproj", "{FB2FBAF8-9668-45CC-9B47-9CFDEEEDBEC8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SSNLib", "SSNLib\SSNLib.csproj", "{FB2FBAF8-9668-45CC-9B47-9CFDEEEDBEC8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SSNLib.UnitTests", "SSNLib.UnitTests\SSNLib.UnitTests.csproj", "{64553C02-B690-491A-9D76-FCF902D84937}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SSNLib.UnitTests", "SSNLib.UnitTests\SSNLib.UnitTests.csproj", "{64553C02-B690-491A-9D76-FCF902D84937}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SSNApi.Domain", "SSNApi.Domain\SSNApi.Domain.csproj", "{1495C5AD-6A39-474B-B9FC-8BF4BE8FBC40}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SSNApi", "SSNApi\SSNApi.csproj", "{70DCE7E5-7A35-4C40-B5E9-A950015307F4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{FAFFD004-8826-461E-8F29-AC8BBF7EADA8}"
+	ProjectSection(SolutionItems) = preProject
+		build\BuildLocal.ps1 = build\BuildLocal.ps1
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "deploy", "deploy", "{F26E75E4-CDF9-46AF-B63C-AC26CE12AB43}"
+	ProjectSection(SolutionItems) = preProject
+		deploy\DeployLocal.ps1 = deploy\DeployLocal.ps1
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SSNApi.IntegrationTests", "SSNApi.IntegrationTests\SSNApi.IntegrationTests.csproj", "{7B5DB920-566A-439C-ACD7-C4ED4D355328}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ssnapi", "ssnapi", "{F8928DDD-E51D-4BD4-B381-EF1E0C62C9ED}"
+	ProjectSection(SolutionItems) = preProject
+		deploy\ssnapi\configmap.yaml = deploy\ssnapi\configmap.yaml
+		deploy\ssnapi\create-sealed-secret.ps1 = deploy\ssnapi\create-sealed-secret.ps1
+		deploy\ssnapi\create-sealed-secret.sh = deploy\ssnapi\create-sealed-secret.sh
+		deploy\ssnapi\deployment.yaml = deploy\ssnapi\deployment.yaml
+		deploy\ssnapi\ingress.yaml = deploy\ssnapi\ingress.yaml
+		deploy\ssnapi\kustomization.yaml = deploy\ssnapi\kustomization.yaml
+		deploy\ssnapi\namespace.yaml = deploy\ssnapi\namespace.yaml
+		deploy\ssnapi\persistentvolume.yaml = deploy\ssnapi\persistentvolume.yaml
+		deploy\ssnapi\persistentvolumeclaim.yaml = deploy\ssnapi\persistentvolumeclaim.yaml
+		deploy\ssnapi\secret.yaml = deploy\ssnapi\secret.yaml
+		deploy\ssnapi\service.yaml = deploy\ssnapi\service.yaml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "secrets", "secrets", "{3948C0E7-6AA5-4159-A7A0-93006978F7FC}"
+	ProjectSection(SolutionItems) = preProject
+		deploy\ssnapi\secrets\ApiKey = deploy\ssnapi\secrets\ApiKey
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,9 +57,25 @@ Global
 		{64553C02-B690-491A-9D76-FCF902D84937}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{64553C02-B690-491A-9D76-FCF902D84937}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{64553C02-B690-491A-9D76-FCF902D84937}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1495C5AD-6A39-474B-B9FC-8BF4BE8FBC40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1495C5AD-6A39-474B-B9FC-8BF4BE8FBC40}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1495C5AD-6A39-474B-B9FC-8BF4BE8FBC40}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1495C5AD-6A39-474B-B9FC-8BF4BE8FBC40}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70DCE7E5-7A35-4C40-B5E9-A950015307F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70DCE7E5-7A35-4C40-B5E9-A950015307F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70DCE7E5-7A35-4C40-B5E9-A950015307F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70DCE7E5-7A35-4C40-B5E9-A950015307F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B5DB920-566A-439C-ACD7-C4ED4D355328}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B5DB920-566A-439C-ACD7-C4ED4D355328}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B5DB920-566A-439C-ACD7-C4ED4D355328}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B5DB920-566A-439C-ACD7-C4ED4D355328}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F8928DDD-E51D-4BD4-B381-EF1E0C62C9ED} = {F26E75E4-CDF9-46AF-B63C-AC26CE12AB43}
+		{3948C0E7-6AA5-4159-A7A0-93006978F7FC} = {F8928DDD-E51D-4BD4-B381-EF1E0C62C9ED}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {93EF3AF1-9ACA-4380-8137-8E05B178AFF9}

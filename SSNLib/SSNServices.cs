@@ -1,7 +1,15 @@
 ﻿namespace SSNLib;
+
+using SSNApi.Domain.Interfaces;
+using SSNApi.Domain.Types;
+
+//TODO: return Resonse from each method
+
+public record Response(int ErrorCode, string ErrorMessage, object Value);
+
 public class SSNServices : ISSNServices
 {
-  private readonly Random gen = new();
+    private readonly Random gen = new();
 
   public Task<int> GenerateCheckDigit(string ssn)
   {
@@ -40,8 +48,8 @@ public class SSNServices : ISSNServices
     string ssn = $"{randomDate:yyMMdd}-{gen.Next(0, 999)}";
     //string ssn = $"{randomDate:yyMMdd}-{gen.Next(0, 999).ToString("D3")}";
     int check = await GenerateCheckDigit(ssn);
-    //await Console.Out.WriteLineAsync($"'{ssn}'");
-    //await Console.Out.WriteLineAsync($"'{ssn}{check}'");
+    await Console.Out.WriteLineAsync($"'{ssn}'");
+    await Console.Out.WriteLineAsync($"'{ssn}{check}'");
 
     return $"{ssn}{check}";
   }
@@ -66,11 +74,11 @@ public class SSNServices : ISSNServices
     int month = int.Parse(s.Substring(2, 2));
     int day = int.Parse(s.Substring(4, 2));
 
-    if (ssn.StartsWith("+"))
+    if (ssn.StartsWith('+'))
     {
       year += 1800;
     }
-    else if (ssn.StartsWith("-"))
+    else if (ssn.StartsWith('-'))
     {
       year += 1900;
     }
@@ -92,7 +100,7 @@ public class SSNServices : ISSNServices
     }
     else
     {
-      return !int.TryParse(s.Substring(8, 1), out int gender)
+      return !int.TryParse(s.AsSpan(8, 1), out int gender)
         ? Task.FromResult(Gender.Unknown)
         : gender % 2 == 0 ? Task.FromResult(Gender.Female) : Task.FromResult(Gender.Male);
     }
