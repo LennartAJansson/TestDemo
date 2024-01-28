@@ -5,6 +5,12 @@ using SSNLib;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddCors(options => options.AddDefaultPolicy(builder => builder
+        .AllowAnyMethod()
+        .AllowAnyHeader()
+        .AllowAnyOrigin()));
+
+
 if (builder.Environment.IsProduction())
 {
   _ = builder.WebHost.UseSetting("http_port", "80");
@@ -16,14 +22,9 @@ builder.Services
   .AddDomain()
   .AddAuthorization()
   .AddControllers();
-  
+
 builder.Services.AddEndpointsApiExplorer()
   .AddSwaggerGen(c => c.AddSwaggerGenOptions());
-
-builder.Services.AddCors(options => options.AddDefaultPolicy(builder => builder
-        .AllowAnyMethod()
-        .AllowAnyHeader()
-        .AllowAnyOrigin()));
 
 WebApplication app = builder.Build();
 
@@ -33,9 +34,10 @@ if (app.Environment.IsDevelopment())
 _ = app.UseSwagger();
 _ = app.UseSwaggerUI();
 
-app.UseCors();
 
 app.UseHttpsRedirection();
+
+app.UseCors();
 
 app.UseAuthorization();
 
