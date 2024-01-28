@@ -33,3 +33,10 @@ steps:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)/SSNApi/bin/Release'
     ArtifactName: 'Artifacts'
     publishLocation: 'Container'
+
+- task: Docker@0
+  inputs:
+    containerregistrytype: 'Container Registry'
+    action: 'Build an image'
+    dockerFile: '**/Dockerfile'
+    imageName: '$(Build.Repository.Name):$(Build.BuildId)'
