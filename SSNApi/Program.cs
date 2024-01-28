@@ -20,6 +20,11 @@ builder.Services
 builder.Services.AddEndpointsApiExplorer()
   .AddSwaggerGen(c => c.AddSwaggerGenOptions());
 
+builder.Services.AddCors(options => options.AddDefaultPolicy(builder => builder
+        .AllowAnyMethod()
+        .AllowAnyHeader()
+        .AllowAnyOrigin()));
+
 WebApplication app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -29,6 +34,8 @@ _ = app.UseSwagger();
 _ = app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
+
+app.UseCors();
 
 app.UseAuthorization();
 
