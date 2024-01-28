@@ -20,6 +20,7 @@ steps:
     command: 'test'
     projects: '**/*.UnitTests.csproj'
     arguments: '--no-build --configuration $(buildConfiguration)'
+    testRunTitle: '$(Build.DefinitionName)_$(Build.BuildNumber)'
 
 - task: CopyFiles@2
   inputs:
@@ -29,6 +30,6 @@ steps:
 
 - task: PublishBuildArtifacts@1
   inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)/bin/Release'
     ArtifactName: 'Artifacts'
     publishLocation: 'Container'
