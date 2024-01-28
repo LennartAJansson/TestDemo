@@ -22,17 +22,17 @@ steps:
     arguments: '--no-build --configuration $(buildConfiguration)'
     testRunTitle: '$(Build.DefinitionName)_$(Build.BuildNumber)'
 
-#- task: CopyFiles@2
-#  inputs:
-#    Contents: 'SSNApi/bin/Release/net?.0/*.*'
-#    TargetFolder: '$(Build.ArtifactStagingDirectory)'
-#    flattenFolders: false
+- task: CopyFiles@2
+  inputs:
+    Contents: '*.IntegrationTests/bin/Release/net?.0/*.*'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+    flattenFolders: false
 
-#- task: PublishBuildArtifacts@1
-#  inputs:
-#    PathtoPublish: '$(Build.ArtifactStagingDirectory)/SSNApi/bin/Release'
-#    ArtifactName: 'Artifacts'
-#    publishLocation: 'Container'
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'Tests'
+    publishLocation: 'Container'
 
 - task: Docker@0
   inputs:
