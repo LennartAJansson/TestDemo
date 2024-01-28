@@ -10,11 +10,20 @@ public static class HttpClientExtensions
   {
     ServiceCollection services = new();
     _ = services.AddHttpClient("TestClient", ConfigureHttpOptions);
+    _ = services.AddHttpClient("SecureTestClient", ConfigureSecureHttpOptions);
 
     return services.BuildServiceProvider();
   }
 
   private static void ConfigureHttpOptions(IServiceProvider provider, HttpClient client)
+  {
+    string baseUrl = Environment.GetEnvironmentVariable("ASPNETCORE_URLS", EnvironmentVariableTarget.Process)
+      ?? throw new ArgumentException("Env variable ASPNETCORE_URLS is missing");
+
+    client.BaseAddress = new Uri(baseUrl);
+  }
+
+  private static void ConfigureSecureHttpOptions(IServiceProvider provider, HttpClient client)
   {
     string baseUrl = Environment.GetEnvironmentVariable("ASPNETCORE_URLS", EnvironmentVariableTarget.Process)
       ?? throw new ArgumentException("Env variable ASPNETCORE_URLS is missing");
@@ -29,9 +38,21 @@ public static class HttpClientExtensions
   {
     IServiceProvider serviceProvider = CreateServiceProvider();
 
-    HttpClient httpClient = serviceProvider.GetRequiredService<HttpClient>();
+    HttpClient httpClient = serviceProvider
+      .GetRequiredService<IHttpClientFactory>()
+      .CreateClient("TestClient");
 
     return httpClient;
   }
 
+  public static HttpClient GenerateSecureClient()
+  {
+    IServiceProvider serviceProvider = CreateServiceProvider();
+
+    HttpClient httpClient = serviceProvider
+      .GetRequiredService<IHttpClientFactory>()
+      .CreateClient("SecureTestClient");
+
+    return httpClient;
+  }
 }
