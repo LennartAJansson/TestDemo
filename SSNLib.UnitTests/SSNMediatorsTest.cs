@@ -65,7 +65,7 @@ public class SSNMediatorsTest
       .GetRequiredService<ISender>()
       .Send(CheckSSNIsValidRequest.Create(response.SSN));
 
-    Assert.IsFalse(actual.IsValid);
+    Assert.IsTrue(actual.IsValid);
   }
 
   [TestMethod]
