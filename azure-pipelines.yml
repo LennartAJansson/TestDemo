@@ -20,7 +20,7 @@ steps:
     command: 'test'
     projects: '**/*.UnitTests.csproj'
     arguments: '--no-build --configuration $(buildConfiguration)'
-    testRunTitle: '$(Build.DefinitionName)_$(Build.BuildNumber)'
+    testRunTitle: 'UnitTests $(Build.DefinitionName)_$(Build.BuildNumber)'
 
 - task: CopyFiles@2
   inputs:
