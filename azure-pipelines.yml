@@ -30,6 +30,6 @@ steps:
 
 - task: PublishBuildArtifacts@1
   inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)/bin/Release'
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)/SSNApi/bin/Release'
     ArtifactName: 'Artifacts'
     publishLocation: 'Container'
