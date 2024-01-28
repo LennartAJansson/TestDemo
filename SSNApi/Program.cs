@@ -35,7 +35,7 @@ _ = app.UseSwagger();
 _ = app.UseSwaggerUI();
 
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 app.UseCors();
 
