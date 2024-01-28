@@ -9,7 +9,7 @@ public static class HttpClientExtensions
   public static IServiceProvider CreateServiceProvider()
   {
     ServiceCollection services = new();
-    //_ = services.AddHttpClient<TestService>(ConfigureHttpOptions);
+    _ = services.AddHttpClient("TestClient", ConfigureHttpOptions);
 
     return services.BuildServiceProvider();
   }
