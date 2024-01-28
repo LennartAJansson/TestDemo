@@ -53,6 +53,6 @@ steps:
 
 - task: PublishBuildArtifacts@1
   inputs:
-    PathtoPublish: 'SSNApi/deploy/ssnapi'
+    PathtoPublish: 'deploy/ssnapi'
     ArtifactName: 'Artifacts'
     publishLocation: 'Container'
