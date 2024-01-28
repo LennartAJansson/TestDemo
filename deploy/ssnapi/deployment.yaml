@@ -23,7 +23,7 @@ spec:
             claimName: testdemo-claim
       containers:
       - name: ssnapi
-        image: registry.local:5000/testdemo:latest
+        image: registry:5000/testdemo:latest
         imagePullPolicy: Always
         envFrom:
         - secretRef: 
