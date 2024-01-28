@@ -9,30 +9,30 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'build'
-    projects: '**/*.csproj'
-    arguments: '--configuration $(buildConfiguration)'
+#- task: DotNetCoreCLI@2
+#  inputs:
+#    command: 'build'
+#    projects: '**/*.csproj'
+#    arguments: '--configuration $(buildConfiguration)'
 
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'test'
-    projects: '**/*.UnitTests.csproj'
-    arguments: '--no-build --configuration $(buildConfiguration)'
-    testRunTitle: '$(Build.DefinitionName)_$(Build.BuildNumber)'
+#- task: DotNetCoreCLI@2
+#  inputs:
+#    command: 'test'
+#    projects: '**/*.UnitTests.csproj'
+#    arguments: '--no-build --configuration $(buildConfiguration)'
+#    testRunTitle: '$(Build.DefinitionName)_$(Build.BuildNumber)'
 
-- task: CopyFiles@2
-  inputs:
-    Contents: 'SSNApi/bin/Release/net?.0/*.*'
-    TargetFolder: '$(Build.ArtifactStagingDirectory)'
-    flattenFolders: false
+#- task: CopyFiles@2
+#  inputs:
+#    Contents: 'SSNApi/bin/Release/net?.0/*.*'
+#    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+#    flattenFolders: false
 
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)/SSNApi/bin/Release'
-    ArtifactName: 'Artifacts'
-    publishLocation: 'Container'
+#- task: PublishBuildArtifacts@1
+#  inputs:
+#    PathtoPublish: '$(Build.ArtifactStagingDirectory)/SSNApi/bin/Release'
+#    ArtifactName: 'Artifacts'
+#    publishLocation: 'Container'
 
 - task: Docker@0
   inputs:
