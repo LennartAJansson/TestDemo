@@ -10,8 +10,8 @@ for file in ./secrets/*; do
     secrets="${secrets} --from-file=$key=$file"
 done
 
-kubectl create secret generic ssnapi-secret --output json --dry-run=client ${secrets} | \
+kubectl create secret generic testdemo-secret --output json --dry-run=client ${secrets} | \
     C:/Apps/kubeseal/kubeseal \
-    -n "ssnapi" \
+    -n "testdemo" \
     --controller-namespace kube-system \
     --format yaml > "secret.yaml"

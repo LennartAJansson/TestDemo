@@ -2,7 +2,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 #https://kubernetes.io/docs/tasks/configure-pod-container/configure-persistent-volume-storage/
 metadata:
-  name: ssnapi-claim
+  name: testdemo-claim
 spec:
   storageClassName: manual
   accessModes:

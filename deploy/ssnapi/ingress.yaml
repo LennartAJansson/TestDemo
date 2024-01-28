@@ -1,28 +1,28 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: ssnapi
+  name: testdemo
   annotations:
     ingress.kubernetes.io/ssl-redirect: "false"
 spec:
   rules:
-  - host: "ssnapi.local"
+  - host: "testdemo.local"
     http:
       paths:
       - pathType: Prefix
         path: "/"
         backend:
           service:
-            name: ssnapi
+            name: testdemo
             port:
               number: 80
-  - host: "ssnapi"
+  - host: "testdemo"
     http:
       paths:
       - pathType: Prefix
         path: "/"
         backend:
           service:
-            name: ssnapi
+            name: testdemo
             port:
               number: 80

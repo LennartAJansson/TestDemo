@@ -1,50 +1,50 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ssnapi
+  name: testdemo
   labels:
-    app: ssnapi
+    app: testdemo
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: ssnapi
+      app: testdemo
   template:
     metadata:
       labels:
-        app: ssnapi
+        app: testdemo
       annotations:
         prometheus.io/scrape: "true"
         prometheus.io/port: "80"
     spec:
       volumes:
-        - name: ssnapi-storage
+        - name: testdemo-storage
           persistentVolumeClaim:
-            claimName: buildversionsapi-claim
+            claimName: testdemo-claim
       containers:
       - name: ssnapi
-        image: registry:5000/ssnapi:latest
+        image: registry:5000/testdemo:latest
         imagePullPolicy: Always
         envFrom:
         - secretRef: 
-            name: ssnapi-secret
+            name: testdemo-secret
         - configMapRef:
-            name: ssnapi-configmap
+            name: testdemo-configmap
         ports:
         - containerPort: 80
           name: http
-        livenessProbe:
-          httpGet:
-            path: /health
-            port: http
-          initialDelaySeconds: 30
-          timeoutSeconds: 30
-        readinessProbe:
-          httpGet:
-            path: /health
-            port: http
-          initialDelaySeconds: 30
-          timeoutSeconds: 30
+        # livenessProbe:
+        #   httpGet:
+        #     path: /health
+        #     port: http
+        #   initialDelaySeconds: 30
+        #   timeoutSeconds: 30
+        # readinessProbe:
+        #   httpGet:
+        #     path: /health
+        #     port: http
+        #   initialDelaySeconds: 30
+        #   timeoutSeconds: 30
         resources:
           requests:
             memory: "128Mi"
@@ -54,5 +54,5 @@ spec:
             cpu: "512m"
         volumeMounts:
           - mountPath: "/data"
-            name: ssnapi-storage
+            name: testdemo-storage
 ---

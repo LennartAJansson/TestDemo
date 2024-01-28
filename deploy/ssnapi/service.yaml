@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: ssnapi
+  name: testdemo
 spec:
   #type: ClusterIP, ExternalName, LoadBalancer, NodePort
   ports:
@@ -10,4 +10,4 @@ spec:
   #- name: https
   #  port: 443
   selector:
-    app: ssnapi
+    app: testdemo
