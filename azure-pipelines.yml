@@ -10,17 +10,17 @@ variables:
 
 steps:
 - task: DotNetCoreCLI@2
- inputs:
-   command: 'build'
-   projects: '**/*.csproj'
-   arguments: '--configuration $(buildConfiguration)'
+  inputs:
+    command: 'build'
+    projects: '**/*.csproj'
+    arguments: '--configuration $(buildConfiguration)'
 
 - task: DotNetCoreCLI@2
- inputs:
-   command: 'test'
-   projects: '**/*.UnitTests.csproj'
-   arguments: '--no-build --configuration $(buildConfiguration)'
-   testRunTitle: '$(Build.DefinitionName)_$(Build.BuildNumber)'
+  inputs:
+    command: 'test'
+    projects: '**/*.UnitTests.csproj'
+    arguments: '--no-build --configuration $(buildConfiguration)'
+    testRunTitle: '$(Build.DefinitionName)_$(Build.BuildNumber)'
 
 #- task: CopyFiles@2
 #  inputs:
