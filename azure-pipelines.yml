@@ -23,7 +23,7 @@ steps:
 
 - task: CopyFiles@2
   inputs:
-    Contents: '**/net?.0/*.*'
+    Contents: 'SSNApi/**/net?.0/*.*'
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
     flattenFolders: false
 
