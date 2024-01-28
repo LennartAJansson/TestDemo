@@ -29,7 +29,7 @@ public class SSNMediatorsTest
   }
 
   [TestMethod]
-  public async void CheckSSNMediatorValidTestAsync()
+  public async Task CheckSSNMediatorValidTestAsync()
   {
     var scope = CreateServiceProvider().CreateScope();
 
@@ -41,7 +41,7 @@ public class SSNMediatorsTest
   }
 
   [TestMethod]
-  public async void CheckSSNMediatorNotValidTestAsync()
+  public async Task CheckSSNMediatorNotValidTestAsync()
   {
     var scope = CreateServiceProvider().CreateScope();
 
@@ -53,7 +53,7 @@ public class SSNMediatorsTest
   }
 
   [TestMethod]
-  public async void GenerateRandomSSNMediatorTestAsync()
+  public async Task GenerateRandomSSNMediatorTestAsync()
   {
     var scope = CreateServiceProvider().CreateScope();
 
@@ -81,6 +81,7 @@ public class SSNMediatorsTest
 
     Assert.AreEqual(expected, actual.Gender);
   }
+  
   [TestMethod]
   public async Task GetGenderMediatorFemaleTestAsync()
   {
