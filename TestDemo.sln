@@ -41,7 +41,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ssnapi", "ssnapi", "{F8928D
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "secrets", "secrets", "{3948C0E7-6AA5-4159-A7A0-93006978F7FC}"
 	ProjectSection(SolutionItems) = preProject
-		deploy\ssnapi\secrets\ApiKey = deploy\ssnapi\secrets\ApiKey
+		deploy\ssnapi\secrets\Api_Key. = deploy\ssnapi\secrets\Api_Key.
 	EndProjectSection
 EndProject
 Global

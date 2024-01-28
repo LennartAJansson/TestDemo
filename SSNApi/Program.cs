@@ -34,7 +34,7 @@ if (app.Environment.IsDevelopment())
 _ = app.UseSwagger();
 _ = app.UseSwaggerUI();
 
-
+//TODO Removed https redirection due to lack of certificate in kubernetes
 //app.UseHttpsRedirection();
 
 app.UseCors();

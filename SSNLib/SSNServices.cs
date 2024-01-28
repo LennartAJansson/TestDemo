@@ -3,7 +3,7 @@
 using SSNApi.Domain.Interfaces;
 using SSNApi.Domain.Types;
 
-//TODO: return Resonse from each method
+//TODO: return Response from each method
 
 public record Response(int ErrorCode, string ErrorMessage, object Value);
 

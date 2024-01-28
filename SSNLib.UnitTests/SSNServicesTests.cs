@@ -1,9 +1,8 @@
 ﻿namespace SSNLib.UnitTests;
-
-using SSNApi.Domain.Interfaces;
 using SSNApi.Domain.Types;
 
 using SSNLib;
+
 
 [TestClass()]
 public class SSNServicesTests

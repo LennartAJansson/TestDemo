@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true, Inherited = true)]
 public class ApiKeyAttribute : Attribute, IAsyncActionFilter, IEndpointFilter
 {
-  private const string APIKEYNAME = "ApiKey";
+  private const string APIKEYNAME = "Api_Key";
   private const string HEADERNAME = "x-api-key";
 
   //This is for Minimal Api's

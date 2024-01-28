@@ -5,8 +5,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using Microsoft.Extensions.DependencyInjection;
+
 public class SSNApiSecTest
 {
+  public static IServiceProvider CreateServiceProvider()
+  {
+    return new ServiceCollection()
+      .BuildServiceProvider();
+  }
+
   //Utan Auth context -> http 500
   //Med Auth context -> http 401
   //Med Auth context + rätt token -> http 200
@@ -27,5 +35,11 @@ public class SSNApiSecTest
     };
 
     return httpClient;
+  }
+
+  [TestMethod]
+  public void TestGenerateSecure()
+  {
+    Assert.IsTrue(true);
   }
 }
