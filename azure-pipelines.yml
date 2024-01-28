@@ -56,3 +56,9 @@ steps:
     PathtoPublish: 'deploy/ssnapi'
     ArtifactName: 'Artifacts'
     publishLocation: 'Container'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '**/*.IntegrationTests/bin/Release'
+    ArtifactName: 'Tests'
+    publishLocation: 'Container'
