@@ -34,20 +34,19 @@ steps:
 #    ArtifactName: 'Artifacts'
 #    publishLocation: 'Container'
 
-- task: Docker@1
+- task: Docker@0
   inputs:
     containerregistrytype: 'Container Registry'
-    command: 'Build an image'
+    action: 'Build an image'
     dockerFile: './SSNApi/Dockerfile'
-    arguments: '--force-rm -t registry.local:5000/$(Build.Repository.Name):$(Build.BuildId) .'
+    buildArguments: '--force-rm -t registry.local:5000/$(Build.Repository.Name):$(Build.BuildId) .'
+    defaultContext: false
     imageName: 'registry.local:5000/$(Build.Repository.Name):$(Build.BuildId)'
     qualifyImageName: false
     includeLatestTag: true
-    useDefaultContext: false
 - task: Docker@1
   inputs:
     containerregistrytype: 'Container Registry'
     command: 'Push an image'
     imageName: 'registry.local:5000/$(Build.Repository.Name):$(Build.BuildId)'
     qualifyImageName: false
-    includeSourceTags: true
