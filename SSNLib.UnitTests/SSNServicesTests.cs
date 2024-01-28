@@ -22,6 +22,20 @@ public class SSNServicesTests
   }
 
   [TestMethod()]
+  public async Task IsNotValidSSNTestAsync()
+  {
+    //ARRANGE
+    SSNServices service = new();
+    string ssn = "800101-0119";
+
+    //ACT
+    bool actual = await service.IsValid(ssn);
+
+    //ASSERT
+    Assert.IsFalse(actual);
+  }
+
+  [TestMethod()]
   public async Task GetGenderIsFemaleTestAsync()
   {
     //ARRANGE

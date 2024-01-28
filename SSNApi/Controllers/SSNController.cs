@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 
 using SSNApi.Attributes;
 
-using static SSNApi.Domain.Mediators.CheckSSNMediator;
+using static SSNApi.Domain.Mediators.CheckSSNIsValidMediator;
 using static SSNApi.Domain.Mediators.GenerateRandomSSNMediator;
 using static SSNApi.Domain.Mediators.GetGenderMediator;
 
@@ -27,10 +27,10 @@ public class SSNController(ILogger<SSNController> logger, ISender sender) : Cont
   }
 
   [HttpGet("valid/{ssn}")]
-  public async Task<CheckSSNResponse> IsValidAsync(string ssn)
+  public async Task<CheckSSNIsValidResponse> IsValidAsync(string ssn)
   {
     logger.LogInformation("IsValidAsync called with {ssn}", ssn);
-    return await sender.Send(CheckSSNRequest.Create(ssn));
+    return await sender.Send(CheckSSNIsValidRequest.Create(ssn));
   }
 
   [HttpGet("random/{start}")]
