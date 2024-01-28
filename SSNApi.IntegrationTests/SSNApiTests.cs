@@ -18,6 +18,9 @@ public class SSNApiTests
     var apiKey = Environment.GetEnvironmentVariable("API_KEY", EnvironmentVariableTarget.Process)
       ?? throw new ArgumentException("Env variable API_KEY is missing");
 
+    Console.WriteLine(baseUrl);
+    Console.WriteLine(apiKey);
+
     var httpClient = new HttpClient()
     {
       DefaultRequestHeaders =
@@ -33,18 +36,21 @@ public class SSNApiTests
   [TestMethod]
   public void TestGender()
   {
+    var client = GenerateClient();
     Assert.IsTrue(true);
   }
 
   [TestMethod]
   public void TestIsValid()
   {
+    var client = GenerateClient();
     Assert.IsTrue(true);
   }
 
   [TestMethod]
   public void TestGenerate()
   {
+    var client = GenerateClient();
     Assert.IsTrue(true);
   }
 }
