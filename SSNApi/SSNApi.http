@@ -1,0 +1,6 @@
+@SSNApi_HostAddress = http://localhost:5123
+
+GET {{SSNApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
