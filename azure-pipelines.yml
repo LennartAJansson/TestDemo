@@ -19,9 +19,16 @@ steps:
   inputs:
     command: 'test'
     projects: '**/*.UnitTests.csproj'
-    arguments: '--no-build --configuration $(buildConfiguration)'
+    arguments: '--no-build --configuration $(buildConfiguration) --collect "Code coverage"'
     testRunTitle: 'UnitTests $(Build.DefinitionName)_$(Build.BuildNumber)'
 
+- task: BuildQualityChecks@9
+  inputs:
+    checkCoverage: true
+    coverageFailOption: 'fixed'
+    coverageType: 'lines'
+    coverageThreshold: '60'
+    
 - task: CopyFiles@2
   inputs:
     Contents: '*.IntegrationTests/bin/Release/net?.0/*.*'
