@@ -5,6 +5,7 @@ using System.Net.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
 public static class HttpClientExtensions
 {
@@ -14,6 +15,11 @@ public static class HttpClientExtensions
       .ConfigureAppConfiguration((hostingContext, config) =>
       {
         _ = config.AddUserSecrets("93ec20c8-42a1-4723-8944-658e0539cd28");
+      })
+      .ConfigureLogging(x =>
+      {
+        x.ClearProviders();
+        x.AddConsole();
       })
       .ConfigureServices((hostContext, services) =>
       {
