@@ -14,9 +14,9 @@ public class SSNApiTests
   {
     var client = HttpClientExtensions.GenerateClient();
     var ssn = "800101-0019"; //Valid
-    var response = await client.GetAsync("api/ssn/isvalid/{ssn}");
+    var response = await client.GetAsync($"api/ssn/isvalid/{ssn}");
     var json = await response.Content.ReadAsStringAsync();
-    var result = JsonSerializer.Deserialize<IsValidResponse>(json);
+    var result = JsonSerializer.Deserialize<IsValidResponse>(json, new JsonSerializerOptions { PropertyNameCaseInsensitive=true});
     Assert.AreEqual(response.StatusCode, HttpStatusCode.OK);
     Assert.IsTrue(result.IsValid);
   }
@@ -26,9 +26,9 @@ public class SSNApiTests
   {
     var client = HttpClientExtensions.GenerateClient();
     var ssn = "800101-0119"; //Not Valid
-    var response = await client.GetAsync("api/ssn/isvalid/{ssn}");
+    var response = await client.GetAsync($"api/ssn/isvalid/{ssn}");
     var json = await response.Content.ReadAsStringAsync();
-    var result = JsonSerializer.Deserialize<IsValidResponse>(json);
+    var result = JsonSerializer.Deserialize<IsValidResponse>(json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
     Assert.AreEqual(response.StatusCode, HttpStatusCode.OK);
     Assert.IsFalse(result.IsValid);
   }
