@@ -1,6 +1,42 @@
 @SSNApi_HostAddress = http://localhost:5123
 
-GET {{SSNApi_HostAddress}}/weatherforecast/
+GET {{SSNApi_HostAddress}}/api/ssn/gender/800101-1007
+Accept: application/json
+
+### Should return 2 for Gender.Female
+
+GET {{SSNApi_HostAddress}}/api/ssn/gender/800101-0017
+Accept: application/json
+
+### Should return 1 for Gender.Male
+
+GET {{SSNApi_HostAddress}}/api/ssn/isvalid/800101-0019
+Accept: application/json
+
+### Should return true (valid)
+
+GET {{SSNApi_HostAddress}}/api/ssn/isvalid/800101-0119
+Accept: application/json
+
+### Should return false (not valid)
+
+GET {{SSNApi_HostAddress}}/api/ssn/dateofbirth/-800101-0019
+Accept: application/json
+
+### Should return 1980-01-01
+
+GET {{SSNApi_HostAddress}}/api/ssn/dateofbirth/-800101-0119
+Accept: application/json
+
+### Should return 1980-01-01
+
+GET {{SSNApi_HostAddress}}/api/ssn/generaterandom/1960-01-01
 Accept: application/json
 
 ###
+
+GET {{SSNApi_HostAddress}}/api/ssn/generaterandomprotected/1960-01-01
+Accept: application/json
+
+### Should return 401 Unauthorized
+

@@ -4,6 +4,7 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 
 public static class SwaggerExtensions
 {
+  //Modifies the SwaggerGenOptions to add the ApiKey security definition and requirement
   public static SwaggerGenOptions AddSwaggerGenOptions(this SwaggerGenOptions options)
   {
     options.SwaggerDoc("v1", new OpenApiInfo { Title = "ServiceName", Version = "1" });

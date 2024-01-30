@@ -1,5 +1,5 @@
 $kubeseal = "C:/Apps/kubeseal/kubeseal"
-$name "ssnapi"
+$name "testdemo"
 $semanticVersion = "latest"
 
 cd ./${deploy}/${name}

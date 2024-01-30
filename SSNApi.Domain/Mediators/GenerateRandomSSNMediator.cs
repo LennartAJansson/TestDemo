@@ -13,21 +13,21 @@ using SSNApi.Domain.Interfaces;
 using static SSNApi.Domain.Mediators.GenerateRandomSSNMediator;
 
 public class GenerateRandomSSNMediator(ILogger<GenerateRandomSSNMediator> logger, ISSNServices services) 
-  : IRequestHandler<GenerateSSNRequest, GenerateSSNResponse>
+  : IRequestHandler<GenerateRandomSSNRequest, GenerateRandomSSNResponse>
 {
-  public record GenerateSSNRequest(DateTime Start) : IRequest<GenerateSSNResponse>
+  public record GenerateRandomSSNRequest(DateTime Start) : IRequest<GenerateRandomSSNResponse>
   {
-    public static GenerateSSNRequest Create(DateTime start) => new(start);
+    public static GenerateRandomSSNRequest Create(DateTime start) => new(start);
   }
 
-  public record GenerateSSNResponse(string SSN)
+  public record GenerateRandomSSNResponse(string SSN)
   {
-    public static GenerateSSNResponse Create(string ssn) => new(ssn);
+    public static GenerateRandomSSNResponse Create(string ssn) => new(ssn);
   };
 
-  public async Task<GenerateSSNResponse> Handle(GenerateSSNRequest request, CancellationToken cancellationToken)
+  public async Task<GenerateRandomSSNResponse> Handle(GenerateRandomSSNRequest request, CancellationToken cancellationToken)
   {
     logger.LogInformation("Generating SSN: {start}", request.Start);
-    return GenerateSSNResponse.Create(await services.GenerateRandom(request.Start));
+    return GenerateRandomSSNResponse.Create(await services.GenerateRandom(request.Start));
   }
 }

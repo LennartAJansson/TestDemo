@@ -4,13 +4,21 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc.Filters;
 
+//Attribute that serves two purposes:
+//1. For Minimal Api's it is an EndpointFilter
+//2. For Controllers it is an ActionFilter
+//It checks if the ApiKey is valid and if not it returns a 401 Unauthorized
+//It is added in the SSNApi project in the Program.cs file through the UseApiKey extension method
+//  found in MinimalApiExtensions.cs in the Extensions folder
+//It is used in the SSNApi project in the Controllers/SSNController.cs file
+
 [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true, Inherited = true)]
 public class ApiKeyAttribute : Attribute, IAsyncActionFilter, IEndpointFilter
 {
   private const string APIKEYNAME = "Api_Key";
   private const string HEADERNAME = "x-api-key";
 
-  //This is for Minimal Api's
+  //This is for Minimal Api's:
   public async ValueTask<object?> InvokeAsync(EndpointFilterInvocationContext context, EndpointFilterDelegate next)
   {
     IResult result = await CheckAndVerifyApiKey(context.HttpContext);
@@ -19,7 +27,7 @@ public class ApiKeyAttribute : Attribute, IAsyncActionFilter, IEndpointFilter
 
   }
 
-  //This is for Controllers
+  //This is for Controllers:
   public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
   {
     IResult result = await CheckAndVerifyApiKey(context.HttpContext);
@@ -34,6 +42,7 @@ public class ApiKeyAttribute : Attribute, IAsyncActionFilter, IEndpointFilter
     }
   }
 
+  //Internal method that checks if the ApiKey is valid, reads the value Api_Key from configuration
   private static Task<IResult> CheckAndVerifyApiKey(HttpContext context)
   {
     IConfiguration appSettings = context.RequestServices.GetRequiredService<IConfiguration>();

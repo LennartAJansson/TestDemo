@@ -12,9 +12,9 @@ using SSNApi.Domain.Types;
 
 using SSNLib;
 
-using static SSNApi.Domain.Mediators.CheckSSNIsValidMediator;
+using static SSNApi.Domain.Mediators.IsValidMediator;
 using static SSNApi.Domain.Mediators.GenerateRandomSSNMediator;
-using static SSNApi.Domain.Mediators.GetGenderMediator;
+using static SSNApi.Domain.Mediators.GenderMediator;
 
 [TestClass()]
 public class SSNMediatorsTest
@@ -35,7 +35,7 @@ public class SSNMediatorsTest
 
     var actual = await scope.ServiceProvider
       .GetRequiredService<ISender>()
-      .Send(CheckSSNIsValidRequest.Create("800101-0019"));
+      .Send(IsValidRequest.Create("800101-0019"));
     
     Assert.IsTrue(actual.IsValid);
   }
@@ -47,7 +47,7 @@ public class SSNMediatorsTest
 
     var actual = await scope.ServiceProvider
       .GetRequiredService<ISender>()
-      .Send(CheckSSNIsValidRequest.Create("800101-0119"));
+      .Send(IsValidRequest.Create("800101-0119"));
 
     Assert.IsFalse(actual.IsValid);
   }
@@ -59,11 +59,11 @@ public class SSNMediatorsTest
 
     var response = await scope.ServiceProvider
       .GetRequiredService<ISender>()
-      .Send(GenerateSSNRequest.Create(DateTime.Parse("1960-01-01")));
+      .Send(GenerateRandomSSNRequest.Create(DateTime.Parse("1960-01-01")));
 
     var actual = await scope.ServiceProvider
       .GetRequiredService<ISender>()
-      .Send(CheckSSNIsValidRequest.Create(response.SSN));
+      .Send(IsValidRequest.Create(response.SSN));
 
     Assert.IsTrue(actual.IsValid);
   }
@@ -77,7 +77,7 @@ public class SSNMediatorsTest
 
     var actual = await scope.ServiceProvider
       .GetRequiredService<ISender>()
-      .Send(GetGenderRequest.Create(ssn));
+      .Send(GenderRequest.Create(ssn));
 
     Assert.AreEqual(expected, actual.Gender);
   }
@@ -91,7 +91,7 @@ public class SSNMediatorsTest
 
     var actual = await scope.ServiceProvider
       .GetRequiredService<ISender>()
-      .Send(GetGenderRequest.Create(ssn));
+      .Send(GenderRequest.Create(ssn));
 
     Assert.AreEqual(expected, actual.Gender);
   }

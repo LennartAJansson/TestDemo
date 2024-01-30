@@ -1,4 +1,10 @@
-﻿namespace SSNLib.UnitTests;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+using SSNLib;
+
+
+namespace SSNLib.UnitTests;
+
 using SSNApi.Domain.Types;
 
 using SSNLib;
@@ -89,9 +95,24 @@ public class SSNServicesTests
     int expected = 9;
 
     //ACT
-    int actual = await service.GenerateCheckDigit(ssn);
+    int actual = await service.CalculateCheckDigit(ssn);
 
     //ASSERT
     Assert.AreEqual(actual, expected);
   }
+
+  //[TestMethod()]
+  //public async Task GetDateOfBirthTestAsync()
+  //{
+  //  //ARRANGE
+  //  SSNServices service = new SSNServices();
+  //  string ssn = "19800101-1007";
+  //  DateTime expected = DateTime.Parse("1980-01-01 00:00:00");
+
+  //  //ACT
+  //  DateTime actual = await service.GetDateOfBirth(ssn);
+
+  //  //ASSERT
+  //  Assert.AreEqual(actual, expected);
+  //}
 }
