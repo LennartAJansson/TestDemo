@@ -1,54 +1,62 @@
 namespace SSNApi.IntegrationTests;
+
+using System.Net;
+using System.Text.Json;
+using System.Threading.Tasks;
+
+using static SSNApi.Domain.Mediators.IsValidMediator;
+
 [TestClass]
 public class SSNApiTests
 {
   [TestMethod]
-  public void TestGender()
+  public async Task TestIsValidAsync()
   {
-    _ = HttpClientExtensions.GenerateClient();
-
-    //string ssn = "800101-1007";
-    //Gender expected = Gender.Female;
-
-    //string ssn = "800101-0017";
-    //Gender expected = Gender.Male;
-
-
-    //var response = client.GetAsync("api/ssn/gender/{ssn}");
-    Assert.IsTrue(true);
+    var client = HttpClientExtensions.GenerateClient();
+    var ssn = "800101-0019"; //Valid
+    var response = await client.GetAsync("api/ssn/isvalid/{ssn}");
+    var json = await response.Content.ReadAsStringAsync();
+    var result = JsonSerializer.Deserialize<IsValidResponse>(json);
+    Assert.AreEqual(response.StatusCode, HttpStatusCode.OK);
+    Assert.IsTrue(result.IsValid);
   }
 
   [TestMethod]
-  public void TestIsValid()
+  public async Task TestIsNotValidAsync()
   {
-    _ = HttpClientExtensions.GenerateClient();
-    //var ssn = "800101-0019"; Valid
-    //var ssn = "800101-0119"; Not Valid
-    //var response = client.GetAsync("api/ssn/valid/{ssn}");
-    Assert.IsTrue(true);
+    var client = HttpClientExtensions.GenerateClient();
+    var ssn = "800101-0119"; //Not Valid
+    var response = await client.GetAsync("api/ssn/isvalid/{ssn}");
+    var json = await response.Content.ReadAsStringAsync();
+    var result = JsonSerializer.Deserialize<IsValidResponse>(json);
+    Assert.AreEqual(response.StatusCode, HttpStatusCode.OK);
+    Assert.IsFalse(result.IsValid);
   }
 
-  [TestMethod]
-  public void TestGenerate()
-  {
-    _ = HttpClientExtensions.GenerateClient();
-    //var response = client.GetAsync("api/ssn/random/{start}");
-    Assert.IsTrue(true);
-  }
+  //[TestMethod]
+  //public void TestProtectedGenerateTrue()
+  //{
+  //  _ = HttpClientExtensions.GenerateSecureClient();
+  //  //var response = client.GetAsync("api/ssn/randomprotected/{start}");
+  //  Assert.IsTrue(true);
+  //}
 
-  [TestMethod]
-  public void TestProtectedGenerateTrue()
-  {
-    _ = HttpClientExtensions.GenerateSecureClient();
-    //var response = client.GetAsync("api/ssn/randomprotected/{start}");
-    Assert.IsTrue(true);
-  }
+  //[TestMethod]
+  //public void TestProtectedGenerateFalse()
+  //{
+  //  _ = HttpClientExtensions.GenerateSecureClient();
+  //  //var response = client.GetAsync("api/ssn/randomprotected/{start}");
+  //  Assert.IsTrue(true);
+  //}
 
-  [TestMethod]
-  public void TestProtectedGenerateFalse()
-  {
-    _ = HttpClientExtensions.GenerateSecureClient();
-    //var response = client.GetAsync("api/ssn/randomprotected/{start}");
-    Assert.IsTrue(true);
-  }
+  ////Utan Auth context -> http 500
+  ////Med Auth context -> http 401
+  ////Med Auth context + rätt token -> http 200
+  //[TestMethod]
+  //public void TestGenerateSecure()
+  //{
+  //  HttpClient client = HttpClientExtensions.GenerateClient();
+  //  Assert.IsTrue(true);
+  //}
+
 }
