@@ -62,9 +62,11 @@ public class SSNServices : ISSNServices
   public async Task<string> GenerateRandom(DateTime start)
   {
     int range = (DateTime.Today - start).Days;
+
     DateTime randomDate = start.AddDays(gen.Next(range));
-    string ssn = $"{randomDate:yyMMdd}-{gen.Next(0, 999)}";
-    //string ssn = $"{randomDate:yyMMdd}-{gen.Next(0, 999).ToString("D3")}";
+
+    //string ssn = $"{randomDate:yyMMdd}-{gen.Next(0, 999)}";
+    string ssn = $"{randomDate:yyMMdd}-{gen.Next(0, 999).ToString("D3")}";
     int check = await CalculateCheckDigit(ssn);
     await Console.Out.WriteLineAsync($"'{ssn}'");
     await Console.Out.WriteLineAsync($"'{ssn}{check}'");

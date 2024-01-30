@@ -14,7 +14,7 @@ public static class HttpClientExtensions
     IHost host = Host.CreateDefaultBuilder()
       .ConfigureAppConfiguration((hostingContext, config) =>
       {
-        _ = config.AddUserSecrets("93ec20c8-42a1-4723-8944-658e0539cd28");
+        _ = config.AddUserSecrets<SSNApiTests>();
       })
       .ConfigureLogging(x =>
       {
