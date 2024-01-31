@@ -14,9 +14,10 @@ public static class HttpClientExtensions
     IHost host = Host.CreateDefaultBuilder()
       .ConfigureAppConfiguration((hostingContext, config) =>
       {
-        //if (string.IsNullOrEmpty(path))
+        var cfgValue = hostingContext.Configuration.GetValue<string>("ASPNETCORE_URLS");
+        var envValue = Environment.GetEnvironmentVariable("ASPNETCORE_URLS");
+        if (string.IsNullOrEmpty(cfgValue) && string.IsNullOrEmpty(envValue))
         {
-          if(string.IsNullOrEmpty(Environment.GetEnvironmentVariable("ASPNETCORE_URLS")))
           _ = config.AddUserSecrets<SSNApiTests>();
         }
       })
