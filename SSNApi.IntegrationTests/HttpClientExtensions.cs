@@ -16,6 +16,7 @@ public static class HttpClientExtensions
       {
         //if (string.IsNullOrEmpty(path))
         {
+          if(string.IsNullOrEmpty(Environment.GetEnvironmentVariable("ASPNETCORE_URLS")))
           _ = config.AddUserSecrets<SSNApiTests>();
         }
       })
@@ -65,9 +66,9 @@ public static class HttpClientExtensions
 
   public static HttpClient GenerateClient()
   {
-    string? path = Environment.ProcessPath;
-    Console.WriteLine(Environment.CommandLine);
-    Console.WriteLine(path);
+    //string? path = Environment.ProcessPath;
+    //Console.WriteLine(Environment.CommandLine);
+    //Console.WriteLine(path);
     IServiceProvider serviceProvider = CreateServiceProvider();
 
     HttpClient httpClient = serviceProvider
