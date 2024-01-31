@@ -47,6 +47,10 @@ public class ApiKeyAttribute : Attribute, IAsyncActionFilter, IEndpointFilter
   {
     IConfiguration appSettings = context.RequestServices.GetRequiredService<IConfiguration>();
     string? apiKey = appSettings.GetValue<string>(APIKEYNAME);
+    if (apiKey == null)
+    {
+      apiKey = Environment.GetEnvironmentVariable(APIKEYNAME);
+    }
 
     if (!context.Request.Headers.TryGetValue(HEADERNAME, out Microsoft.Extensions.Primitives.StringValues extractedApiKey))
     {
