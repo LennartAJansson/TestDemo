@@ -56,7 +56,7 @@ public static class HttpClientExtensions
     ILogger<SSNApiTests> logger = provider.GetRequiredService<ILogger<SSNApiTests>>();
     logger.LogInformation("Using BaseUrl: {baseUrl}", baseUrl);
 
-    string apiKey = provider.GetRequiredService<IConfiguration>().GetValue<string>("API_KEY")
+    string apiKey = provider.GetRequiredService<IConfiguration>().GetValue<string>("Api_Key")
       ?? throw new ArgumentException("No ApiKey");
 
     logger.LogInformation("Using ApiKey: {apiKey}", apiKey);
@@ -67,9 +67,6 @@ public static class HttpClientExtensions
 
   public static HttpClient GenerateClient()
   {
-    //string? path = Environment.ProcessPath;
-    //Console.WriteLine(Environment.CommandLine);
-    //Console.WriteLine(path);
     IServiceProvider serviceProvider = CreateServiceProvider();
 
     HttpClient httpClient = serviceProvider
@@ -81,9 +78,6 @@ public static class HttpClientExtensions
 
   public static HttpClient GenerateSecureClient()
   {
-    string? path = Environment.ProcessPath;
-    Console.WriteLine(Environment.CommandLine);
-    Console.WriteLine(path);
     IServiceProvider serviceProvider = CreateServiceProvider();
 
     HttpClient httpClient = serviceProvider
