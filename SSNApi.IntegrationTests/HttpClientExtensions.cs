@@ -37,6 +37,9 @@ public static class HttpClientExtensions
     string baseUrl = provider.GetRequiredService<IConfiguration>().GetValue<string>("ASPNETCORE_URLS")
       ?? throw new ArgumentException("No BaseUrl");
 
+    var logger = provider.GetRequiredService<ILogger<SSNApiTests>>();
+    logger.LogInformation($"Using BaseUrl: {baseUrl}");
+
     client.BaseAddress = new Uri(baseUrl);
   }
 
@@ -45,8 +48,13 @@ public static class HttpClientExtensions
     string baseUrl = provider.GetRequiredService<IConfiguration>().GetValue<string>("ASPNETCORE_URLS")
       ?? throw new ArgumentException("No BaseUrl");
 
+    var logger = provider.GetRequiredService<ILogger<SSNApiTests>>();
+    logger.LogInformation($"Using BaseUrl: {baseUrl}");
+
     string apiKey = provider.GetRequiredService<IConfiguration>().GetValue<string>("API_KEY")
       ?? throw new ArgumentException("No ApiKey");
+
+    logger.LogInformation($"Using ApiKey: {apiKey}");
 
     client.BaseAddress = new Uri(baseUrl);
     client.DefaultRequestHeaders.Add("x-api-key", apiKey);
