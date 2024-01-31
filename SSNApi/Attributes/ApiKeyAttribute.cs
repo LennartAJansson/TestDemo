@@ -3,6 +3,8 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Primitives;
 
 //Attribute that serves two purposes:
 //1. For Minimal Api's it is an EndpointFilter
@@ -46,20 +48,26 @@ public class ApiKeyAttribute : Attribute, IAsyncActionFilter, IEndpointFilter
   private static Task<IResult> CheckAndVerifyApiKey(HttpContext context)
   {
     IConfiguration appSettings = context.RequestServices.GetRequiredService<IConfiguration>();
+    var logger = context.RequestServices.GetRequiredService<ILoggerFactory>().CreateLogger<ApiKeyAttribute>();
+    
     string? apiKey = appSettings.GetValue<string>(APIKEYNAME);
-    if (apiKey == null)
-    {
-      apiKey = Environment.GetEnvironmentVariable(APIKEYNAME);
-    }
+    apiKey ??= Environment.GetEnvironmentVariable(APIKEYNAME);
+    
+    logger.LogInformation("Using ApiKey: {apiKey}", apiKey);
+    
+    StringValues extractedApiKey;
 
-    if (!context.Request.Headers.TryGetValue(HEADERNAME, out Microsoft.Extensions.Primitives.StringValues extractedApiKey))
+    if (!context.Request.Headers.TryGetValue(HEADERNAME, out extractedApiKey))
     {
       return Task.FromResult(Results.Json(new { StatusCode = 401, Content = "Api Key was not provided. (Using ApiKeyAttribute)" }, statusCode: 401));
     }
-
-    return apiKey is null || !apiKey.Equals(extractedApiKey)
+    else
+    {
+      logger.LogInformation("Extracted ApiKey: {apiKey}", extractedApiKey);
+      return apiKey is null || !apiKey.Equals(extractedApiKey)
         ? Task.FromResult(Results.Json(new { StatusCode = 401, Content = "Api Key was invalid. (Using ApiKeyAttribute)" }, statusCode: 401))
         : Task.FromResult(Results.Ok());
+    }
   }
 }
 
